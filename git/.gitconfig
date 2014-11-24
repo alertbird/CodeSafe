@@ -1,0 +1,15 @@
+[user]
+	name = Patrick Zhang
+	email = patrick.zhang@ocado.com
+[core]
+	autocrlf = true
+	excludesfile = C:\\Users\\patrick.zhang\\Documents\\gitignore_global.txt
+[difftool "sourcetree"]
+	cmd = 'C:/Program Files (x86)/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = 'C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe'  -base:\"$BASE\" -mine:\"$LOCAL\" -theirs:\"$REMOTE\" -merged:\"$MERGED\"
+	trustExitCode = true
+[push]
+	default = matching
+[gui]
+	recentrepo = C:/GitWorkSpaces/activity-service

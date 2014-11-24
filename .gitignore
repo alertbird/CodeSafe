@@ -1,0 +1,25 @@
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+### Intellij ###
+## Directory-based project format
+.idea/
+
+## File-based project format
+*.ipr
+*.iml
+*.iws
+
+### Emacs ###
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+.\#*
+
+### Git ignore sub folders ###
+**/bin/Debug/
