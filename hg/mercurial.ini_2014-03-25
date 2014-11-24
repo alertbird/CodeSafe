@@ -1,0 +1,81 @@
+[ui]
+username = Patrick Zhang <patrick.zhang@ocado.com>
+ssh = "C:\Program Files\TortoiseHg\TortoisePlink.exe" -ssh -2 -i "C:\Apps\Keys\patrick.zhang.nopwd.ppk"
+verbose = True
+editor = "C:\Program Files (x86)\Notepad++\notepad++.exe" -multiInst -nosession
+merge = winmergeu
+#merge = tortoisemerge
+
+[extensions]
+checkcommitsigs = C:\Users\patrick.zhang\hgCommitSigs\hgext\checkcommitsigs.py
+flow = C:\Program Files\TortoiseHg\hgext\hgflow-v0.9.6.py
+mq =
+progress =
+convert =
+purge =
+hgsubversion = C:\Program Files\TortoiseHg\hgext\hgsubversion\hgsubversion
+extdiff = 
+color =
+graphlog = 
+hgk = 
+pager = 
+
+#[color]
+# valid modes are win32, ansi, auto, off
+#mode = win32
+
+[pager]
+pager = LESS='FSRX' less
+ignore = version, help, update, serve, record
+
+[checkcommitsigs]
+openssl.pem = C:\Users\patrick.zhang\hgCommitSigs\ssh\id_rsa.pem
+openssl.path = C:\Apps\OpenSSL-Win64\bin\openssl.exe
+openssl.capath = C:\Users\patrick.zhang\hgCommitSigs\certs
+allow.unsigned.in = True
+debug = False
+allow.username.mismatch = True
+
+[flow]
+autoshelve = true
+
+[hgsubversion]
+authormap = C:\usermapping.txt
+
+[extdiff]
+cmd.winmerge = "C:\Program Files (x86)\WinMerge\WinMergeU.exe"
+opts.winmerge = /e /x /ub /wl
+
+[merge-tools]
+winmergeu.executable = "C:\Program Files (x86)\WinMerge\WinMergeU.exe"
+winmergeu.priority= 1
+winmergeu.fixeol=True
+winmergeu.checkchanged=True
+winmergeu.args= /e /ub /dl other /dr local $other $local $output
+winmergeu.gui=False
+winmergeu.binary=True
+winmerge.diffargs=/r /e /x /ub /wl /dl '$plabel1' /dr '$clabel' $parent $child
+winmerge.diff3args=
+winmerge.dirdiff=True
+
+[hooks]
+pretxncommit.verifyall = python:checkcommitsigs.verifyallhook
+
+[tortoisehg]
+ui.language = en_GB
+editor = notepad++
+shell = windows_command_prompt
+vdiff = winmergeu
+confirmpush = True
+tabwidth = 4
+guifork = True
+fullpath = True
+autoresolve = True
+refreshwdstatus = always
+confirmaddfiles = True
+confirmdeletefiles = True
+#vdiff = tortoisemerge
+
+[alias]
+killitwithfire = revert --no-backup --all
+
