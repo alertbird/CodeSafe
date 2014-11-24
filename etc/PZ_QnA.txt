@@ -1,0 +1,127 @@
+Technical Notes
+
+===================================================================================
+>>H1>>
+===================================================================================
+
+===================================================================================
+>>H2>> Java API for XML Web Services (JAX-WS)
+===================================================================================
+
+Java API for XML Web Services (JAX-WS)
+Parameter names in generated wsdl
+Maven and Maven Plugins
+JAX-WS Maven Plugin
+Goals Overview
+
+
+Java API for XML Web Services (JAX-WS)
+The JAX-WS 2.2 specification JSR 224 defines a standard Java- to-WSDL mapping which determines how WSDL operations are bound to Java methods when a SOAP message invokes a WSDL operation. This Java-to-WSDL mapping determines which Java method gets invoked and how that SOAP message is mapped to the method�s parameters.
+This mapping also determines how the method�s return value gets mapped to the SOAP response.
+JAX-WS uses annotations, introduced in Java SE 5, to simplify the development and deployment of web service clients and endpoints. It is part of the Java Web Services Development Pack. JAX-WS can be used in Java SE starting with version 6.[1] JAX-WS 2.0 replaced the JAX-RPC API in Java Platform, Enterprise Edition 5 which leans more towards document style Web Services.
+This API provides the core of Project Metro, inside the Glassfish open-source Application Server community of Oracle Corporation.
+JAX-WS also is one of the foundations of WSIT.
+
+Parameter names in generated wsdl
+The solution is to annotate parameters in transfer interface with�javax.jws.WebParam(name="nameInWsdl") and then parameters in wsdl take names from annotations.
+
+Maven and Maven Plugins
+
+JAX-WS Maven Plugin
+
+Goals Overview
+* jaxws:wsimport: generates JAX-WS portable artifacts used in JAX-WS clients and services. The tool reads a WSDL and generates all the required artifacts for web service development, deployment, and invocation. 
+* jaxws:wsimport-test: same as jaxws:wsimport but for tests.
+* jaxws:wsgen: reads a service endpoint implementation class and generates all of the portable artifacts for a JAX-WS web service.
+* jaxws:wsgen-test: same as jaxws:wsgen but for tests.
+
+JAXB-2 Maven Plugin
+This plugin uses JAXB2 to generate Java classes from XML Schemas (and binding files) and to create XML Schemas for existing Java classes.
+Goals:
+jaxb2:xjc Generates Java sources from XML Schema(s).
+
+
+
+
+Java Persistence/Transactions
+
+http://en.wikibooks.org/wiki/Java_Persistence/Transactions
+A transaction is a set of operations that either fail or succeed as a unit. Transactions are a fundamental part of persistence. A database transaction consists of a set of SQL DML (Data Manipulation Language) operations that are committed or rolled back as a single unit. An object level transaction is one in which a set of changes made to a set of objects are committed to the database as a single unit.
+JPA provides two mechanisms for transactions. When used in JEE JPA provides integration with JTA (Java Transaction API). JPA also provides its own EntityTransaction implementation for JSE and for use in a non-managed mode in JEE. Transactions in JPA are always at the object level, this means that all changes made to all persistent objects in the persistence context are part of the transaction.
+
+JTA transactions are defined through the JTA UserTransaction class, or more likely implicitly defined through SessionBean usage/methods. In a SessionBean normally each SessionBean method invocation defines a JTA transaction. UserTransaction can be obtained through a JNDI lookup in most application servers, or from the EJBContext in EJB 2.0 style SessionBeans.
+JTA transactions can be used in two modes in JEE. In JEE managed mode, such as an EntityManager injected into a SessionBean, the EntityManager reference, represents a new persistence context for each transaction. This means objects read in one transaction become detached after the end of the transaction, and should no longer be used, or need to be merged into the next transaction. In managed mode, you never create or close an EntityManager.
+The second mode allows the EntityManager to be application managed, (normally obtained from an injected EntityManagerFactory, or directly from JPA Persistence). This allows the persistence context to survive transaction boundaries, and follow the normal EntityManager life-cycle similar to resource local. If the EntityManager is created in the context of an active JTA transaction, it will automatically be part of the JTA transaction and commit/rollback with the JTA transaction. Otherwise it must join a JTA transaction to commit/rollback using EntityManager.joinTransaction()
+
+Flush and Commit
+Probably the exact details of em.flush() are implementation-dependent. In general anyway, JPA providers like Hibernate can cache the SQL instructions they are supposed to send to the database, often until you actually commit the transaction. For example, you call em.persist(), Hibernate remembers it has to make a database INSERT, but does not actually execute the instruction until you commit the transaction. Afaik, this is mainly done for performance reasons.
+In some cases anyway you want the SQL instructions to be executed immediately; generally when you need the result of some side effects, like an autogenerated key, or a database trigger.
+What em.flush() does is to empty the internal SQL instructions cache, and execute it immediately to the database.
+Bottom line: no harm is done, only you could have a (minor) performance hit since you are overriding the JPA provider decisions as regards the best timing to send SQL instructions to the database.
+flush() sends SQL instructions to the database like INSERT, UPDATE etc. It will not send a COMMIT, so if you have an exception after a flush(), you can still have a complete rollback.
+
+
+===================================================================================
+>>H1>> Java EE
+===================================================================================
+
+===================================================================================
+>>H2>> Enterprise JavaBean (EJB)
+===================================================================================
+
+The Enterprise JavaBean (EJB) specification defines a set of lightweight APIs that an object container (the EJB container) will support in order to provide transactions (using JTA), remote procedure calls (using RMI or RMI-IIOP), concurrency control, dependency injection and access control for business objects. This package contains the Enterprise JavaBeans classes and interfaces that define the contracts between the enterprise bean and its clients and between the enterprise bean and the ejb container.
+
+===================================================================================
+>>H2>> Java Persistence API (JPA)
+===================================================================================
+
+
+
+===================================================================================
+>>H2>> Java Message Service (JMS)
+===================================================================================
+
+
+
+===================================================================================
+>>H2>> Java Transaction API (JTA)
+===================================================================================
+
+
+
+===================================================================================
+>>H2>> Java EE servers
+===================================================================================
+
+A Java EE application server can handle transactions, security, scalability, concurrency and management of the components it is deploying, in order to enable developers to concentrate more on the business logic of the components rather than on infrastructure and integration tasks.
+
+
+===================================================================================
+>>H2>> JavaServer Pages (JSP)
+===================================================================================
+
+
+
+
+===================================================================================
+>>H2>> Servlet
+===================================================================================
+
+
+===================================================================================
+>>H2>> Dependency Injection
+===================================================================================
+
+Dependency injection means giving an object its instance variables.
+Dependency injection is really just passing in an instance variable.
+Among other things, it's handy for isolating classes during testing.
+
+
+
+===================================================================================
+>>H2>>
+===================================================================================
+
+===================================================================================
+>>End>>
+===================================================================================
